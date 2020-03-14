@@ -1,6 +1,0 @@
-C:\Patryk\Git Repositiories\Machine-Learning-Workshop-Project\Server C#\Server\bin\Debug\Server.exe.config
-C:\Patryk\Git Repositiories\Machine-Learning-Workshop-Project\Server C#\Server\bin\Debug\Server.exe
-C:\Patryk\Git Repositiories\Machine-Learning-Workshop-Project\Server C#\Server\bin\Debug\Server.pdb
-C:\Patryk\Git Repositiories\Machine-Learning-Workshop-Project\Server C#\Server\obj\Debug\Server.csprojAssemblyReference.cache
-C:\Patryk\Git Repositiories\Machine-Learning-Workshop-Project\Server C#\Server\obj\Debug\Server.exe
-C:\Patryk\Git Repositiories\Machine-Learning-Workshop-Project\Server C#\Server\obj\Debug\Server.pdb
