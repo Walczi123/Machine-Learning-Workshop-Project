@@ -23,7 +23,7 @@ class Game:
             self.state.isEnd()  
             self.state.printVector()
         print("--- END ---")
-        print("Player "+self.state.winner+" wins")
+        print("Player "+str(self.state.winner)+" wins")
 
 if __name__ == "__main__":
     game = Game()
