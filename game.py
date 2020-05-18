@@ -3,15 +3,26 @@ from state import State
 
 class Game:
     def __init__(self):
-        self.p1 = Player()
-        self.p2 = Player()
+        self.player1 = Player()
+        self.player2 = Player()
         self.state = State()
+        self.currentPlayer = None
 
     def reset(self):
-        self.currentState = State()
+        self.state = State()
 
     def play(self):
-        pass
+        self.currentPlayer = self.player1
+        while self.state.end != True :
+            move = self.currentPlayer.move()
+            self.state.addMove(move)
+            if self.currentPlayer == self.player1 :
+                self.currentPlayer = self.player2
+            else :
+                self.currentPlayer = self.player1    
+            self.state.isEnd()  
+        print("--- END ---")
+        print("Player "+self.state.winner+" wins")
 
 if __name__ == "__main__":
     game = Game()
