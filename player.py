@@ -4,5 +4,5 @@ class Player:
 
     def move(self):
         x, y = input("Input x and y:  ").split() 
-        return (x, y)
+        return (int(x), int(y))
     
