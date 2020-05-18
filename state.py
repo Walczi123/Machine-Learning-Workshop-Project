@@ -1,3 +1,5 @@
+import numpy as np
+
 class State:
     def __init__(self):
         self.data = []
@@ -8,8 +10,8 @@ class State:
         self.data.append(move)    
 
     def isEnd(self):
-        if self.end is not None:
-            return self.end       
+        if self.end is not False:
+            return self.end      
         for i in range(0, len(self.data), 2):
             x,y = self.data[i]
             for j in range(i+2, len(self.data), 2):
