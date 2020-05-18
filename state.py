@@ -78,15 +78,19 @@ class State:
         minheight=min(list,key=lambda x:x[1])[1]    
         #print(width)
         #print(height)
+        print("",end="   ")
+        for y in range(minwidth,maxwidth+1):
+            print(y,end="   ")
         for y in range(minheight,maxheight+1):
             print("\n")
+            print(y,end="   ")
             for x in range(minwidth,maxwidth+1):
                 cell=findCell(list,x,y)
                 if(cell):
-                    print(cell[0][2],end=" ")
+                    print(cell[0][2],end="   ")
                 else:
-                    print("*",end=" ")
-            print("\n")
+                    print(".",end="   ")
+        print("\n")
 
 def findCell(vector,x,y):
     result=[item for item in vector if item[0]==x and item[1]==y]
