@@ -18,8 +18,8 @@ class State:
                 if (x == x2 + 1 and (y == y2 or y == y2+1 or y == y2-1)) or (x == x2 - 1 and (y == y2 or y == y2+1 or y == y2-1)) or (x == x2 and (y == y2-1 or y == y2+1)):
                     xdiff = x-x2
                     ydiff = y-y2
-                    for j in range(j+2, len(self.data), 2):
-                        x3,xy = data[k]
+                    for k in range(j+2, len(self.data), 2):
+                        x3,y3 = data[k]
                         if np.abs(xdiff) == 1 and ydiff == 0:
                             if y == y3 and (x == x3 - xdiff or x2 = x3 + xdiff):
                                 self.winner = True
@@ -43,8 +43,8 @@ class State:
                 if (x == x2 + 1 and (y == y2 or y == y2+1 or y == y2-1)) or (x == x2 - 1 and (y == y2 or y == y2+1 or y == y2-1)) or (x == x2 and (y == y2-1 or y == y2+1)):
                     xdiff = x-x2
                     ydiff = y-y2
-                    for j in range(j+2, len(self.data), 2):
-                        x3,xy = data[k]
+                    for k in range(j+2, len(self.data), 2):
+                        x3,y3 = data[k]
                         if np.abs(xdiff) == 1 and ydiff == 0:
                             if y == y3 and (x == x3 - xdiff or x2 = x3 + xdiff):
                                 self.winner = False
