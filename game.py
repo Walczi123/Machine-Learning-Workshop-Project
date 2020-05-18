@@ -21,6 +21,7 @@ class Game:
             else :
                 self.currentPlayer = self.player1    
             self.state.isEnd()  
+            #self.state.printVector()
         print("--- END ---")
         print("Player "+self.state.winner+" wins")
 
