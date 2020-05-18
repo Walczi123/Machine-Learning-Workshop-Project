@@ -9,8 +9,7 @@ class State:
 
     def isEnd(self):
         if self.end is not None:
-            return self.end
-        
+            return self.end       
         for i in range(0, len(self.data), 2):
             x,y = data[i]
             for j in range(i+2, len(self.data), 2):
@@ -21,21 +20,20 @@ class State:
                     for k in range(j+2, len(self.data), 2):
                         x3,y3 = data[k]
                         if np.abs(xdiff) == 1 and ydiff == 0:
-                            if y == y3 and (x == x3 - xdiff or x2 = x3 + xdiff):
+                            if y == y3 and (x == x3 - xdiff or x2 == x3 + xdiff):
                                 self.winner = True
                                 self.end = True
                                 return self.end
                         elif xdiff == 0 and np.abs(ydiff) == 1:
-                            if x == x3 and (y == y3 - ydiff or y2 = y3 + diff):
+                            if x == x3 and (y == y3 - ydiff or y2 == y3 + diff):
                                 self.winner = True
                                 self.end = True
                                 return self.end
                         else:
-                            if (x == x3 - xdiff and y == y3 - diff) or (x2 == x3 + xdiff and y2 = y3 + ydiff):
+                            if (x == x3 - xdiff and y == y3 - diff) or (x2 == x3 + xdiff and y2 == y3 + ydiff):
                                 self.winner = True
                                 self.end = True
                                 return self.end
-
         for i in range(1, len(self.data), 2):
             x,y = data[i]
             for j in range(i+2, len(self.data), 2):
@@ -46,20 +44,19 @@ class State:
                     for k in range(j+2, len(self.data), 2):
                         x3,y3 = data[k]
                         if np.abs(xdiff) == 1 and ydiff == 0:
-                            if y == y3 and (x == x3 - xdiff or x2 = x3 + xdiff):
+                            if y == y3 and (x == x3 - xdiff or x2 == x3 + xdiff):
                                 self.winner = False
                                 self.end = True
                                 return self.end
                         elif xdiff == 0 and np.abs(ydiff) == 1:
-                            if x == x3 and (y == y3 - ydiff or y2 = y3 + diff):
+                            if x == x3 and (y == y3 - ydiff or y2 == y3 + diff):
                                 self.winner = False
                                 self.end = True
                                 return self.end
                         else:
-                            if (x == x3 - xdiff and y == y3 - diff) or (x2 == x3 + xdiff and y2 = y3 + ydiff):
+                            if (x == x3 - xdiff and y == y3 - diff) or (x2 == x3 + xdiff and y2 == y3 + ydiff):
                                 self.winner = False
                                 self.end = True
                                 return self.end
-
         self.end = False
         return self.end
