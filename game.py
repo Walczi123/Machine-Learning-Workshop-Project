@@ -15,7 +15,8 @@ class Game:
         self.currentPlayer = self.player1
         while self.state.end != True :
             move = self.currentPlayer.move()
-            self.state.addMove(move)
+            if not self.state.addMove(move):
+                continue;
             if self.currentPlayer == self.player1 :
                 self.currentPlayer = self.player2
             else :

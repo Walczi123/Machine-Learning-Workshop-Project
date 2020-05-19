@@ -7,7 +7,11 @@ class State:
         self.end = False
 
     def addMove(self,move):
-        self.data.append(move)    
+        if findCell(self.data,move[0],move[1]):
+            print("This cell is already occupied! Try again")
+            return False
+        self.data.append(move)
+        return True
 
     def isEnd(self):
         if self.end is not False:
