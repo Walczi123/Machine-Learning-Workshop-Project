@@ -20,7 +20,8 @@ class Game:
                 self.currentPlayer = self.player2
             else :
                 self.currentPlayer = self.player1    
-            self.state.isEnd()  
+            #self.state.isEnd()
+            self.state.martinIsEnd()
             self.state.printVector()
         print("--- END ---")
         print("Player "+str(self.state.winner)+" wins")
