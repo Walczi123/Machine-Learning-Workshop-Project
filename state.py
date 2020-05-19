@@ -95,7 +95,6 @@ class State:
             else:
                 label="O"
             list.append((vector[index][0],vector[index][1],label))
-        list=sorted(list,key=lambda x: (x[0],x[1]))
         maxwidth=max(list,key=lambda x:x[0])[0]
         minwidth=min(list,key=lambda x:x[0])[0]
         maxheight=max(list,key=lambda x:x[1])[1]
