@@ -1,42 +1,44 @@
 import numpy as np
+from state import findCell
 
 class Player:
     def __init__(self):
         pass
 
-    def move(self):
+    def move(self, state):
         x, y = input("Input x and y:  ").split() 
         return (int(x), int(y))
 
 class Bot(Player):
-    def __init__(self, exploreRate = 0.3):
+    def __init__(self, limiter = 5, exploreRate = 0.3):
         self.exploreRate = exploreRate
         self.states = []
         self.estimations = dict()
+        self.limiter = limiter
         pass
 
-    def move(self):
+    def move(self, state):
 
-        state = self.states[-1]
+        #state = self.states[-1]
         nextStates = []
         nextPositions = []
-        for i in range(-100, 100):
-            for j in range(-100, 100):
-                if (i,j) not in self.states:
-                    nextPositions.append([i,j])
+        for i in range(-self.limiter, self.limiter):
+            for j in range(-self.limiter, self.limiter):
+                if findCell(state.data, i, j) != None:
+                    nextPositions.append((i,j))
                     nextStates.append(state.nextState(i,j).getHash())
 
-        if np.random.binomial(1, self.exploreRate):
+        #if np.random.binomial(1, self.exploreRate):
             np.random.shuffle(nextPositions)
             self.states=[]
             action=nextPositions[0]
             return action
 
-        values = []
-        for hash, pos in zip(nextStates, nextPositions):
-            values.append((self.estimations[hash], pos))
-        np.random.shuffle(values)
-        values.sort(key=lambda x: x[0], reverse=True)
-        action = values[0][1]
-        return action
+        #values = []
+        #for hash, pos in zip(nextStates, nextPositions):
+        #    values.append((self.estimations[hash], pos))
+        #np.random.shuffle(values)
+        #values.sort(key=lambda x: x[0], reverse=True)
+        #action = values[0][1]
+        #return action
     
