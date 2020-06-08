@@ -1,5 +1,6 @@
 import numpy as np
 from state import findCell
+import pickle
 
 class Player:
     def __init__(self):
@@ -10,9 +11,11 @@ class Player:
         return (int(x), int(y))
 
 class Bot(Player):
-    def __init__(self, id, limiter = 3, exploreRate = 0.3, stepSize = 0.1):
+    def __init__(self, id, limiter = 5,stepSize=0.1, name = 'bot', exploreRate = 0.3):
         self.exploreRate = exploreRate
         self.states = []
+        self.stepSize = stepSize
+        self.name = name
         self.estimations = dict()
         self.limiter = limiter
         self.stepSize = stepSize
@@ -20,8 +23,8 @@ class Bot(Player):
         pass
 
     def move(self, state):
-
         #state = self.states[-1]
+
         nextStates = []
         nextPositions = []
         for i in range(-self.limiter, self.limiter+1):
@@ -61,4 +64,14 @@ class Bot(Player):
             self.estimations[latestState] = value
             target = value
         self.states = []
+
+    def savePolicy(self):
+        fw = open('optimal_policy_' + self.name, 'wb')
+        pickle.dump(self.estimations, fw)
+        fw.close()
+
+    def loadPolicy(self):
+        fr = open('optimal_policy_' + self.name,'rb')
+        self.estimations = pickle.load(fr)
+        fr.close()
     
