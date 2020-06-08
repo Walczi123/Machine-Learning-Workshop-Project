@@ -10,9 +10,10 @@ class Player:
         return (int(x), int(y))
 
 class Bot(Player):
-    def __init__(self, limiter = 5, exploreRate = 0.3):
+    def __init__(self, limiter = 5,stepSize=0.1, exploreRate = 0.3):
         self.exploreRate = exploreRate
         self.states = []
+        self.stepSize = stepSize
         self.estimations = dict()
         self.limiter = limiter
         pass
