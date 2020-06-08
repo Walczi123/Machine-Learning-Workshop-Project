@@ -64,13 +64,14 @@ class State:
     def getHash(self):
         return hash(frozenset(self.data))
 
-    def nextState(self, i, j, symbol):
+    def nextState(self, i, j):
         newState = State(need_for_win=3)
-        newState.data = np.copy(self.data)
-        newState.data.append[(i, j)]
+        newState.data = self.data.copy()
+        newState.data.append((i, j))
         return newState
 
 def findCell(vector,x,y):
+    result = None
     result=[item for item in vector if item[0]==x and item[1]==y]
     return result
 
