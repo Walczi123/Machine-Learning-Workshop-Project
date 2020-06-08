@@ -1,4 +1,5 @@
 import numpy as np
+import pickle
 
 class Player:
     def __init__(self):
@@ -9,14 +10,14 @@ class Player:
         return (int(x), int(y))
 
 class Bot(Player):
-    def __init__(self, exploreRate = 0.3):
+    def __init__(self, name = 'bot', exploreRate = 0.3):
         self.exploreRate = exploreRate
         self.states = []
+        self.name = name
         self.estimations = dict()
         pass
 
     def move(self):
-
         state = self.states[-1]
         nextStates = []
         nextPositions = []
@@ -51,4 +52,14 @@ class Bot(Player):
             self.estimations[latestState] = value
             target = value
         self.states = []
+
+    def savePolicy(self):
+        fw = open('optimal_policy_' + self.name, 'wb')
+        pickle.dump(self.estimations, fw)
+        fw.close()
+
+    def loadPolicy(self):
+        fr = open('optimal_policy_' + self.name,'rb')
+        self.estimations = pickle.load(fr)
+        fr.close()
     
