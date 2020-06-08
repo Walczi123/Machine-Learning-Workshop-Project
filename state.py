@@ -99,3 +99,6 @@ def checkCell(cell,playerList,win,minWin,maxWin):
         else:
             break
     return False
+
+    def getHash(self):
+        return hash(frozenset(self.data))
