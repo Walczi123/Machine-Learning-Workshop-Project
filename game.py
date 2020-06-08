@@ -2,10 +2,10 @@ from player import Player, Bot
 from state import State
 
 class Game:
-    def __init__(self, p1 = Player(), p2 =Player()):
+    def __init__(self, p1 = Player(), p2 =Player(), need_for_win = 3):
         self.player1 = p1
         self.player2 = p2
-        self.state = State()
+        self.state = State(need_for_win)
         self.currentPlayer = None
 
     def reset(self):
@@ -13,14 +13,17 @@ class Game:
 
     def play(self):
         self.currentPlayer = self.player1
+        label = "X"
         while self.state.end != True :
             move = self.currentPlayer.move()
-            if not self.state.addMove(move):
+            if not self.state.addMove((move[0],move[1],label)):
                 continue;
             if self.currentPlayer == self.player1 :
                 self.currentPlayer = self.player2
+                label = "O"
             else :
-                self.currentPlayer = self.player1    
+                self.currentPlayer = self.player1  
+                label = "X"  
             #self.state.isEnd()
             self.state.martinIsEnd()
             self.state.printVector()
@@ -29,14 +32,17 @@ class Game:
 
     def train_play(self):
         self.currentPlayer = self.player1
+        label = "X"
         while self.state.end != True :
             move = self.currentPlayer.move()
-            if not self.state.addMove(move):
+            if not self.state.addMove((move[0],move[1],label)):
                 continue;
             if self.currentPlayer == self.player1 :
                 self.currentPlayer = self.player2
+                label = "O"
             else :
-                self.currentPlayer = self.player1    
+                self.currentPlayer = self.player1  
+                label = "X"  
             #self.state.isEnd()
             self.state.martinIsEnd()
             self.state.printVector()
@@ -60,8 +66,9 @@ class Game:
         # player2.savePolicy()
 
 if __name__ == "__main__":
-    b1 = Bot()
-    b2 = Bot()
-    game = Game(b1,b2)
-    game.train()
+    # b1 = Bot()
+    # b2 = Bot()
+    # game = Game(b1,b2)
+    # game.train()
+    game = Game()
     game.play()        

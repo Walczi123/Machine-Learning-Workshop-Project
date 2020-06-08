@@ -1,11 +1,11 @@
 def print2(vector):
-    list=[]
-    for index in range(len(vector)):
-        if (index%2)==0:
-            label="X"
-        else:
-            label="O"
-        list.append((vector[index][0],vector[index][1],label))
+    # list=[]
+    # for index in range(len(vector)):
+    #     if (index%2)==0:
+    #         label="X"
+    #     else:
+    #         label="O"
+    #     list.append((vector[index][0],vector[index][1],label))
     list=sorted(list,key=lambda x: (x[0],x[1]))
     print(list)
     width=max(list,key=lambda x:x[0])[0]-min(list,key=lambda x:x[0])[0]
