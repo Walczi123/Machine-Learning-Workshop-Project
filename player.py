@@ -11,11 +11,10 @@ class Player:
         return (int(x), int(y))
 
 class Bot(Player):
-    def __init__(self, id, limiter = 5,stepSize=0.1, name = 'bot', exploreRate = 0.3):
+    def __init__(self, id, limiter = 5,stepSize=0.1, exploreRate = 0.3):
         self.exploreRate = exploreRate
         self.states = []
         self.stepSize = stepSize
-        self.name = name
         self.estimations = dict()
         self.limiter = limiter
         self.stepSize = stepSize
@@ -66,12 +65,12 @@ class Bot(Player):
         self.states = []
 
     def savePolicy(self):
-        fw = open('optimal_policy_' + self.name, 'wb')
+        fw = open('optimal_policy_' + str(self.id), 'wb')
         pickle.dump(self.estimations, fw)
         fw.close()
 
     def loadPolicy(self):
-        fr = open('optimal_policy_' + self.name,'rb')
+        fr = open('optimal_policy_' + str(self.id),'rb')
         self.estimations = pickle.load(fr)
         fr.close()
     

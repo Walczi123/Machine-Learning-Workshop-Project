@@ -30,7 +30,7 @@ class Game:
             print("--- END ---")
             print("Player "+str(self.state.winner)+" wins")
 
-    def train(self, iterations=40000):
+    def train(self, iterations=2000):
         player1Win = 0.0
         player2Win = 0.0
         for i in range(0, iterations):
@@ -48,6 +48,8 @@ class Game:
             self.reset()
         print(player1Win / iterations)
         print(player2Win / iterations)
+        self.player1.savePolicy()
+        self.player2.savePolicy()
         if(player1Win > player2Win):
             return 1
         return 2
