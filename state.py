@@ -1,10 +1,11 @@
 import numpy as np
 import math
 class State:
-    def __init__(self):
+    def __init__(self, need_for_win):
         self.data = []
         self.winner = None
         self.end = False
+        self.need_for_win = need_for_win
 
     def addMove(self,move):
         if findCell(self.data,move[0],move[1]):
@@ -68,7 +69,7 @@ class State:
         return self.end
     
     def martinIsEnd(self):
-        win=3
+        win=self.need_for_win
         minWin=math.floor((win-1)/2)
         maxWin=math.ceil(win/2)
         if self.end is True:
