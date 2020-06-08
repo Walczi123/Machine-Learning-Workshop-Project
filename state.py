@@ -60,6 +60,9 @@ class State:
                 else:
                     print(".",end="   ")
         print("\n")
+        
+    def getHash(self):
+        return hash(frozenset(self.data))
 
     def nextState(self, i, j, symbol):
         newState = State(need_for_win=3)
