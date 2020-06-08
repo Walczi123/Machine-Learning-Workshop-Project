@@ -60,6 +60,9 @@ class State:
                 else:
                     print(".",end="   ")
         print("\n")
+        
+    def getHash(self):
+        return hash(frozenset(self.data))
 
 def findCell(vector,x,y):
     result=[item for item in vector if item[0]==x and item[1]==y]
@@ -99,6 +102,3 @@ def checkCell(cell,playerList,win,minWin,maxWin):
         else:
             break
     return False
-
-    def getHash(self):
-        return hash(frozenset(self.data))
