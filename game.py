@@ -16,7 +16,7 @@ class Game:
     def play(self):
         self.currentPlayer = self.player1
         while self.state.end != True :
-            move = self.currentPlayer.move()
+            move = self.currentPlayer.move(self.state)
             if not self.state.addMove((move[0],move[1])):
                 continue
             if self.currentPlayer == self.player1 :
@@ -30,11 +30,12 @@ class Game:
             print("--- END ---")
             print("Player "+str(self.state.winner)+" wins")
 
-    def train(self, iterations=20000):
+    def train(self, iterations=40000):
         player1Win = 0.0
         player2Win = 0.0
         for i in range(0, iterations):
-            print("Epoch", i/iterations)
+            if i%100 == 0:
+                print("Epoch", i/iterations)
             self.play()
             if self.state.winner == 1:
                 player1Win += 1
@@ -44,6 +45,7 @@ class Game:
                 player2Win += 1
                 self.player1.feedReward(0)
                 self.player2.feedReward(1)
+            self.reset()
         print(player1Win / iterations)
         print(player2Win / iterations)
         if(player1Win > player2Win):
@@ -52,9 +54,10 @@ class Game:
 
 
 if __name__ == "__main__":
-    b1 = Bot()
-    b2 = Bot()
+    b1 = Bot(1)
+    b2 = Bot(2)
     game = Game(b1,b2)
+    game.debug = False
     better_bot = game.train()
     if better_bot == 1 : 
         game.player2 = b1
