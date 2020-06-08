@@ -15,17 +15,14 @@ class Game:
 
     def play(self):
         self.currentPlayer = self.player1
-        label = "X"
         while self.state.end != True :
             move = self.currentPlayer.move()
-            if not self.state.addMove((move[0],move[1],label)):
+            if not self.state.addMove((move[0],move[1])):
                 continue
             if self.currentPlayer == self.player1 :
                 self.currentPlayer = self.player2
-                label = "O"
             else :
                 self.currentPlayer = self.player1  
-                label = "X"  
             self.state.isEnd()
             if(self.debug):
                 self.state.printVector()
