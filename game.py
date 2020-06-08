@@ -15,17 +15,14 @@ class Game:
 
     def play(self):
         self.currentPlayer = self.player1
-        label = "X"
         while self.state.end != True :
-            move = self.currentPlayer.move(self.state)
-            if not self.state.addMove((move[0],move[1],label)):
+            move = self.currentPlayer.move()
+            if not self.state.addMove((move[0],move[1])):
                 continue
             if self.currentPlayer == self.player1 :
                 self.currentPlayer = self.player2
-                label = "O"
             else :
                 self.currentPlayer = self.player1  
-                label = "X"  
             self.state.isEnd()
             if(self.debug):
                 self.state.printVector()
@@ -41,23 +38,28 @@ class Game:
             self.play()
             if self.state.winner == 1:
                 player1Win += 1
+                self.player1.feedReward(1)
+                self.player2.feedReward(0)
             if self.state.winner  == 2:
                 player2Win += 1
-            self.reset()
+                self.player1.feedReward(0)
+                self.player2.feedReward(1)
         print(player1Win / iterations)
         print(player2Win / iterations)
         if(player1Win > player2Win):
             return 1
         return 2
 
+
 if __name__ == "__main__":
     b1 = Bot()
     b2 = Bot()
-    game = Game(b1,b2, debug=True)
-    # better_bot = game.train()
-    # if(better_bot == 1) game.player2 = b1
-    # else game.player2 = b2
-    # game.player1 = Player()
-    # game.debug = True
+    game = Game(b1,b2)
+    better_bot = game.train()
+    if better_bot == 1 : 
+        game.player2 = b1
+    else: game.player2 = b2
+    game.player1 = Player()
+    game.debug = True
     # game = Game(debug=True)
     game.play()        

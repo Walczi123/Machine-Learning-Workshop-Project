@@ -36,17 +36,17 @@ class State:
                 
     def printVector(self):
         vector = self.data
-        # list = []
-        # for index in range(len(self.data)):
-        #     if (index%2)==0:
-        #         label="X"
-        #     else:
-        #         label="O"
-        #     list.append((vector[index][0],vector[index][1],label))
-        maxwidth=max(vector,key=lambda x:x[0])[0]
-        minwidth=min(vector,key=lambda x:x[0])[0]
-        maxheight=max(vector,key=lambda x:x[1])[1]
-        minheight=min(vector,key=lambda x:x[1])[1]    
+        list = []
+        for index in range(len(self.data)):
+            if (index%2)==0:
+                label="X"
+            else:
+                label="O"
+            list.append((vector[index][0],vector[index][1],label))
+        maxwidth=max(list,key=lambda x:x[0])[0]
+        minwidth=min(list,key=lambda x:x[0])[0]
+        maxheight=max(list,key=lambda x:x[1])[1]
+        minheight=min(list,key=lambda x:x[1])[1]    
         print("",end="   ")
         for y in range(minwidth,maxwidth+1):
             print(y,end="   ")
@@ -54,7 +54,7 @@ class State:
             print("\n")
             print(y,end="   ")
             for x in range(minwidth,maxwidth+1):
-                cell=findCell(vector,x,y)
+                cell=findCell(list,x,y)
                 if(cell):
                     print(cell[0][2],end="   ")
                 else:

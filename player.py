@@ -42,3 +42,15 @@ class Bot(Player):
         #action = values[0][1]
         #return action
     
+    # update estimation according to reward
+    def feedReward(self, reward):
+        if len(self.states) == 0:
+            return
+        self.states = [state.getHash() for state in self.states]
+        target = reward
+        for latestState in reversed(self.states):
+            value = self.estimations[latestState] + self.stepSize * (target - self.estimations[latestState])
+            self.estimations[latestState] = value
+            target = value
+        self.states = []
+    
