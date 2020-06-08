@@ -19,7 +19,7 @@ class Game:
         while self.state.end != True :
             move = self.currentPlayer.move()
             if not self.state.addMove((move[0],move[1],label)):
-                continue;
+                continue
             if self.currentPlayer == self.player1 :
                 self.currentPlayer = self.player2
                 label = "O"
@@ -46,7 +46,7 @@ class Game:
             self.reset()
         print(player1Win / iterations)
         print(player2Win / iterations)
-        if(player1Win > player2Win)
+        if(player1Win > player2Win):
             return 1
         return 2
 
