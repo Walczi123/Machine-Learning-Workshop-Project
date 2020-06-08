@@ -27,26 +27,10 @@ class Game:
                 self.currentPlayer = self.player1  
                 label = "X"  
             self.state.isEnd()
-            self.state.printVector()
-        print("--- END ---")
-        print("Player "+str(self.state.winner)+" wins")
-
-    def train_play(self):
-        self.currentPlayer = self.player1
-        label = "X"
-        while self.state.end != True :
-            move = self.currentPlayer.move()
-            if not self.state.addMove((move[0],move[1],label)):
-                continue;
-            if self.currentPlayer == self.player1 :
-                self.currentPlayer = self.player2
-                label = "O"
-            else :
-                self.currentPlayer = self.player1  
-                label = "X"  
-            self.state.isEnd()
-            self.state.printVector()
+            if(self.debug):
+                self.state.printVector()
         if(self.debug):
+            print("--- END ---")
             print("Player "+str(self.state.winner)+" wins")
 
     def train(self, iterations=20000):
@@ -62,13 +46,18 @@ class Game:
             self.reset()
         print(player1Win / iterations)
         print(player2Win / iterations)
-        # player1.savePolicy()
-        # player2.savePolicy()
+        if(player1Win > player2Win)
+            return 1
+        return 2
 
 if __name__ == "__main__":
     # b1 = Bot()
     # b2 = Bot()
     # game = Game(b1,b2)
-    # game.train()
-    game = Game()
+    # better_bot = game.train()
+    # if(better_bot == 1) game.player2 = b1
+    # else game.player2 = b2
+    # game.player1 = Player()
+    # game.debug = True
+    game = Game(debug=True)
     game.play()        
