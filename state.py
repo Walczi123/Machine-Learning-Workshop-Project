@@ -61,6 +61,12 @@ class State:
                     print(".",end="   ")
         print("\n")
 
+    def nextState(self, i, j, symbol):
+        newState = State(need_for_win=3)
+        newState.data = np.copy(self.data)
+        newState.data.append[(i, j)]
+        return newState
+
 def findCell(vector,x,y):
     result=[item for item in vector if item[0]==x and item[1]==y]
     return result

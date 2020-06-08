@@ -66,9 +66,9 @@ class Game:
         # player2.savePolicy()
 
 if __name__ == "__main__":
-    # b1 = Bot()
-    # b2 = Bot()
-    # game = Game(b1,b2)
-    # game.train()
-    game = Game()
-    game.play()        
+    #b1 = Bot()
+    #b2 = Bot()
+    #game = Game(b1,b2)
+    #game.train()
+    #game = Game()
+    #game.play()        
