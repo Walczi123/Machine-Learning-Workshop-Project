@@ -1,5 +1,6 @@
 import numpy as np
 import math
+
 class State:
     def __init__(self, need_for_win):
         self.data = []
@@ -13,62 +14,8 @@ class State:
             return False
         self.data.append(move)
         return True
-
-    def isEnd(self):
-        if self.end is not False:
-            return self.end      
-        for i in range(0, len(self.data), 2):
-            x,y = self.data[i]
-            for j in range(i+2, len(self.data), 2):
-                x2,y2 = self.data[j]
-                if (x == x2 + 1 and (y == y2 or y == y2+1 or y == y2-1)) or (x == x2 - 1 and (y == y2 or y == y2+1 or y == y2-1)) or (x == x2 and (y == y2-1 or y == y2+1)):
-                    xdiff = x-x2
-                    ydiff = y-y2
-                    for k in range(j+2, len(self.data), 2):
-                        x3,y3 = self.data[k]
-                        if np.abs(xdiff) == 1 and ydiff == 0:
-                            if y == y3 and (x == x3 - xdiff or x2 == x3 + xdiff):
-                                self.winner = 1
-                                self.end = True
-                                return self.end
-                        elif xdiff == 0 and np.abs(ydiff) == 1:
-                            if x == x3 and (y == y3 - ydiff or y2 == y3 + ydiff):
-                                self.winner = 1
-                                self.end = True
-                                return self.end
-                        else:
-                            if (x == x3 - xdiff and y == y3 - ydiff) or (x2 == x3 + xdiff and y2 == y3 + ydiff):
-                                self.winner = 1
-                                self.end = True
-                                return self.end
-        for i in range(1, len(self.data), 2):
-            x,y = self.data[i]
-            for j in range(i+2, len(self.data), 2):
-                x2,y2 = self.data[j]
-                if (x == x2 + 1 and (y == y2 or y == y2+1 or y == y2-1)) or (x == x2 - 1 and (y == y2 or y == y2+1 or y == y2-1)) or (x == x2 and (y == y2-1 or y == y2+1)):
-                    xdiff = x-x2
-                    ydiff = y-y2
-                    for k in range(j+2, len(self.data), 2):
-                        x3,y3 = self.data[k]
-                        if np.abs(xdiff) == 1 and ydiff == 0:
-                            if y == y3 and (x == x3 - xdiff or x2 == x3 + xdiff):
-                                self.winner = 2
-                                self.end = True
-                                return self.end
-                        elif xdiff == 0 and np.abs(ydiff) == 1:
-                            if x == x3 and (y == y3 - ydiff or y2 == y3 + ydiff):
-                                self.winner = 2
-                                self.end = True
-                                return self.end
-                        else:
-                            if (x == x3 - xdiff and y == y3 - ydiff) or (x2 == x3 + xdiff and y2 == y3 + ydiff):
-                                self.winner = 2
-                                self.end = True
-                                return self.end
-        self.end = False
-        return self.end
     
-    def martinIsEnd(self):
+    def isEnd(self):
         win=self.need_for_win
         minWin=math.floor((win-1)/2)
         maxWin=math.ceil(win/2)
@@ -89,17 +36,17 @@ class State:
                 
     def printVector(self):
         vector = self.data
-        list = []
-        for index in range(len(self.data)):
-            if (index%2)==0:
-                label="X"
-            else:
-                label="O"
-            list.append((vector[index][0],vector[index][1],label))
-        maxwidth=max(list,key=lambda x:x[0])[0]
-        minwidth=min(list,key=lambda x:x[0])[0]
-        maxheight=max(list,key=lambda x:x[1])[1]
-        minheight=min(list,key=lambda x:x[1])[1]    
+        # list = []
+        # for index in range(len(self.data)):
+        #     if (index%2)==0:
+        #         label="X"
+        #     else:
+        #         label="O"
+        #     list.append((vector[index][0],vector[index][1],label))
+        maxwidth=max(vector,key=lambda x:x[0])[0]
+        minwidth=min(vector,key=lambda x:x[0])[0]
+        maxheight=max(vector,key=lambda x:x[1])[1]
+        minheight=min(vector,key=lambda x:x[1])[1]    
         print("",end="   ")
         for y in range(minwidth,maxwidth+1):
             print(y,end="   ")
@@ -107,7 +54,7 @@ class State:
             print("\n")
             print(y,end="   ")
             for x in range(minwidth,maxwidth+1):
-                cell=findCell(list,x,y)
+                cell=findCell(vector,x,y)
                 if(cell):
                     print(cell[0][2],end="   ")
                 else:
