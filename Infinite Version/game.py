@@ -3,18 +3,17 @@ from state import State
 
 # main class of tictactoe game
 class Game:
-    def __init__(self, p1 = Player(), p2 =Player(), need_for_win = 3, debug = False, boardSize = 5):
+    def __init__(self, p1 = Player(), p2 =Player(), need_for_win = 3, debug = False):
         self.player1 = p1
         self.player2 = p2
-        self.state = State( need_for_win, boardSize)
-        self.boardSize = boardSize
+        self.state = State( need_for_win)
         self.need_for_win = need_for_win
         self.currentPlayer = None
         self.debug = debug
 
     # erase all states of game
     def reset(self):
-        self.state = State(self.need_for_win, self.boardSize)
+        self.state = State(self.need_for_win)
 
     # main function of game
     def play(self):
@@ -66,7 +65,7 @@ if __name__ == "__main__":
     # create bots
     b1 = Bot(1)
     b2 = Bot(2)
-    game = Game(b1, b2, need_for_win=3, boardSize = 5)
+    game = Game(b1, b2, need_for_win=3)
     game.debug = False
     # traninng
     better_bot = game.train()
