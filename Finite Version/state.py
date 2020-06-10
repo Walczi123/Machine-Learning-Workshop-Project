@@ -1,13 +1,16 @@
 import numpy as np
 import math
 
+# class with board informations
 class State:
-    def __init__(self, need_for_win):
+    def __init__(self, need_for_win, boardSize):
         self.data = []
         self.winner = None
         self.end = False
         self.need_for_win = need_for_win
+        self.boardSize = boardSize
 
+    # if move is correct add to list
     def addMove(self,move):
         if findCell(self.data,move[0],move[1]):
             print("This cell is already occupied! Try again")
@@ -15,6 +18,7 @@ class State:
         self.data.append(move)
         return True
     
+    # end condition
     def isEnd(self):
         win=self.need_for_win
         minWin=math.floor((win-1)/2)
@@ -33,7 +37,13 @@ class State:
                 self.end=True
                 self.winner=2
                 return self.end
-                
+        if len(self.data) == self.boardSize * self.boardSize:
+                self.end=True
+                self.winner=0
+                return self.end
+     
+
+    # print board    
     def printVector(self):
         vector = self.data
         list = []
@@ -60,21 +70,25 @@ class State:
                 else:
                     print(".",end="   ")
         print("\n")
-        
+    
+    # create the hash of states
     def getHash(self):
         return hash(frozenset(self.data))
 
+    # create all posible next moves
     def nextState(self, i, j):
-        newState = State(need_for_win=3)
+        newState = State(self.need_for_win, self.boardSize)
         newState.data = self.data.copy()
         newState.data.append((i, j))
         return newState
 
+# find cell if exists
 def findCell(vector,x,y):
     result = None
     result=[item for item in vector if item[0]==x and item[1]==y]
     return result
 
+# get symbol of the cell
 def checkCell(cell,playerList,win,minWin,maxWin):
     count=0
     for shift in range(-minWin,maxWin+1):

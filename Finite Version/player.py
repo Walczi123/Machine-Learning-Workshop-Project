@@ -1,15 +1,22 @@
 import numpy as np
 from state import findCell
 import pickle
+import os.path
+import random
 
 class Player:
     def __init__(self):
         pass
 
     def move(self, state):
-        x, y = input("Input x and y:  ").split() 
-        return (int(x), int(y))
+        while(True):
+            anw = input("Input x and y:  ").split()
+            try:
+                return (int(anw[0]), int(anw[1]))
+            except ValueError:
+                print("Incorrect values")
 
+# AI Player
 class Bot(Player):
     def __init__(self, id, limiter = 5,stepSize=0.1, exploreRate = 0.3):
         self.exploreRate = exploreRate
@@ -17,13 +24,13 @@ class Bot(Player):
         self.stepSize = stepSize
         self.estimations = dict()
         self.limiter = limiter
+        self.bounds = limiter
         self.stepSize = stepSize
         self.id = id
         pass
-
+    
+    # decision making
     def move(self, state):
-        #state = self.states[-1]
-
         nextStates = []
         nextPositions = []
         for i in range(-self.limiter, self.limiter+1):
@@ -37,26 +44,27 @@ class Bot(Player):
                                 self.estimations[state.nextState(i,j).getHash()] = 1
                             else:
                                 self.estimations[state.nextState(i,j).getHash()] = 0
+                        else : 
+                            self.estimations[state.nextState(i,j).getHash()] = 0.5       
 
         if np.random.binomial(1, self.exploreRate):
-            np.random.shuffle(nextPositions)
-            self.states=[]
-            action=nextPositions[0]
+            r = random.randint(0, len(nextPositions)-1)
+            action=nextPositions[r]
+            self.states.append(nextStates[r])
             return action
 
         values = []
         for hash, pos in zip(nextStates, nextPositions):
             values.append((self.estimations[hash], pos))
-        np.random.shuffle(values)
-        values.sort(key=lambda x: x[0], reverse=True)
-        action = values[0][1]
+        v = values.index(max(values, key=lambda item:item[0]))
+        action = values[v][1]
+        self.states.append(nextStates[v])
         return action
     
     # update estimation according to reward
     def feedReward(self, reward):
         if len(self.states) == 0:
             return
-        self.states = [state.getHash() for state in self.states]
         target = reward
         for latestState in reversed(self.states):
             value = self.estimations[latestState] + self.stepSize * (target - self.estimations[latestState])
@@ -64,12 +72,16 @@ class Bot(Player):
             target = value
         self.states = []
 
+    # save learing data
     def savePolicy(self):
         fw = open('optimal_policy_' + str(self.id), 'wb')
         pickle.dump(self.estimations, fw)
         fw.close()
 
+    # save learing data
     def loadPolicy(self):
+        if not os.path.exists('optimal_policy_' + str(self.id)):
+            return
         fr = open('optimal_policy_' + str(self.id),'rb')
         self.estimations = pickle.load(fr)
         fr.close()
