@@ -1,6 +1,23 @@
 \documentclass[a4paper,12pt]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{titlesec}
+
+\titleformat
+{\chapter} % command
+[display] % shape
+{\bfseries\Large\itshape} % format
+{\small{Tic-Tac-Toe Machine Learning Workshop}} % label
+{0.5ex} % sep
+{
+	\rule{\textwidth}{1pt}
+	\vspace{1ex}
+	\centering
+} % before-code
+[
+\vspace{-0.5ex}%
+\rule{\textwidth}{0.3pt}
+] % after-code
 
 \begin{document}
 	
@@ -13,8 +30,8 @@
 	\tableofcontents
 	
 	\mainmatter
-	\chapter{The First Chapter}
-	\chapter{The Second Chapter}
+	\chapter{\Huge{Introduction}}
+	Test
 	
 	\backmatter
 	% bibliography, glossary and index would go here.
