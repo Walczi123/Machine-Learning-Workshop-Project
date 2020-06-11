@@ -69,8 +69,8 @@
 \begin{document}
 	
 	\author{Martin Mrugała\\Patryk Walczak\\Filip Szymczak\\Bartek Żyła\\Maciej Zalewski}
-	\title{\Huge{\bf{Machine Learning Project\\Tic-Tac-Toe}}}
-	\date{\emph{16th June, 2020}}
+	\title{\Huge{\bf{Machine Learning Workshop\\Tic-Tac-Toe Project}}}
+	\date{\emph{\today}}
 	
 	\frontmatter
 	\maketitle
@@ -88,10 +88,15 @@
 		\label{fig:Capture1}
 	\end{figure}
 	\footnotetext{Source of the image: \url{https://en.wikipedia.org/wiki/Tic-tac-toe}}
-	And as it turns out, there are 255 168 possible games. So this means that, with the help of the reinforcement learning, a bot may be trained to mastery. 
+	And as it turns out, there are 255 168 possible games. So this means that, with the help of the reinforcement learning, a bot may train to mastery. 
 	\newpage
 	\section{Our implementation}
-	
+	Our team decided to create a bot which would play this game but in an expanded version of it. The principal changes concern, inter alia:\\
+	\begin{itemize}
+		\item \textbf{The size of the grid could be infinite}\\
+		Infinite
+		\item Another entry in the list
+	\end{itemize}
 	\begin{python}
 		class MyClass(Yourclass):
 		def __init__(self, my, yours):
