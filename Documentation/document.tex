@@ -94,15 +94,23 @@
 	Our team decided to create a bot which would play this game but in an expanded version of it. The principal changes concern, inter alia:\\
 	\begin{itemize}
 		\item \textbf{The size of the grid could be infinite}\\
-		Infinite
-		\item Another entry in the list
+		The number of squares is not boundless, of course. Due to the CPU, as well as the storage limitations, the infinity has to be simulated. We came up with two solutions. The first one is pretty straightforward, but a little preachy. The idea is to set the size in advance. The second one, in turn, assumes an increase in the size whenever the players get close to the edge.
+		\item \textbf{Condition of winning}\\
+		The length of the sequence of X's or O's needed to win may have any value. Naturally, it has to satisfy the following condition:
+		\begin{center}
+			$0 < length < edgelength$
+		\end{center}
+		There is still the matter of the draw. In case of the constant size gird, the tie occurs, whenever there is no way for any player to win.
 	\end{itemize}
+	\section{Machine Learning backgroud}
+	\chapter{Code}
 	\begin{python}
 		class MyClass(Yourclass):
 		def __init__(self, my, yours):
 		bla = '5 1 2 3 4'
 		print bla
 	\end{python}
+	\chapter{Bibliography}
 
 	
 	\backmatter
