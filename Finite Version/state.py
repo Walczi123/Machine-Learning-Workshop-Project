@@ -37,7 +37,7 @@ class State:
                 self.end=True
                 self.winner=2
                 return self.end
-        if len(self.data) == self.boardSize * self.boardSize:
+        if len(self.data) == (2*self.boardSize + 1) * (2*self.boardSize + 1):
                 self.end=True
                 self.winner=0
                 return self.end
