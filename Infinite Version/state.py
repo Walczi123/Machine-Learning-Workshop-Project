@@ -93,8 +93,8 @@ def checkCell(cell,playerList,win,minWin,maxWin):
         else:
             break
     count=0
-    for shift in range(maxWin,minWin-1,-1):
-        if [item for item in playerList if item[0]==(cell[0]+shift) and item[1]==(cell[1]+shift)]:
+    for shift in range(-minWin,maxWin+1):
+        if [item for item in playerList if item[0]==(cell[0]-shift) and item[1]==(cell[1]+shift)]:
             count=count+1
             if count == win:
                 return True
