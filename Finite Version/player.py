@@ -18,7 +18,7 @@ class Player:
 
 # AI Player
 class Bot(Player):
-    def __init__(self, id, limiter = 5,stepSize=0.1, exploreRate = 0.3):
+    def __init__(self, id, limiter = 1, stepSize=0.1, exploreRate = 0.3):
         self.exploreRate = exploreRate
         self.states = []
         self.stepSize = stepSize
@@ -40,12 +40,15 @@ class Bot(Player):
                     nextStates.append(state.nextState(i,j).getHash())
                     if state.nextState(i,j).getHash() not in self.estimations:
                         if state.nextState(i,j).isEnd:
-                            if state.nextState(i,j).winner == id:
-                                self.estimations[state.nextState(i,j).getHash()] = 1
+                            if state.nextState(i,j).winner == 0:
+                                self.estimations[state.nextState(i,j).getHash()] = 0.1
                             else:
-                                self.estimations[state.nextState(i,j).getHash()] = 0
+                                if state.nextState(i,j).winner == id:
+                                    self.estimations[state.nextState(i,j).getHash()] = 1
+                                else:
+                                    self.estimations[state.nextState(i,j).getHash()] = 0
                         else : 
-                            self.estimations[state.nextState(i,j).getHash()] = 0.5       
+                            self.estimations[state.nextState(i,j).getHash()] = 0.5      
 
         if np.random.binomial(1, self.exploreRate):
             r = random.randint(0, len(nextPositions)-1)
