@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2019.4.15)  16 JUN 2020 16:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2019.4.15)  16 JUN 2020 19:31
 entering extended mode
 **./document.tex
 (document.tex
@@ -536,9 +536,6 @@ LaTeX Warning: Label `fig:Capture1' multiply defined.
 
 LaTeX Warning: Label `fig:Capture1' multiply defined.
 
-
-LaTeX Warning: Label `fig:Capture1' multiply defined.
-
 )
 \openout1 = `document.aux'.
 
@@ -734,44 +731,49 @@ File: ./Images/3x3moves.jpg Graphic file (type jpg)
 <use ./Images/3x3moves.jpg>
 Package pdftex.def Info: ./Images/3x3moves.jpg  used on input line 308.
 (pdftex.def)             Requested size: 352.31538pt x 143.03401pt.
-[11 <./Images/3x3moves.jpg>] [12] [13] [14]
-Chapter 4.
-[15
+[11 <./Images/3x3moves.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 334--336
 
-] [16
+ []
+
+[12] [13] [14] [15] [16
+
+]
+Chapter 4.
+[17] [18
 
 ]
 Chapter 5.
 
-Overfull \hbox (102.9685pt too wide) in paragraph at lines 393--394
+Overfull \hbox (102.9685pt too wide) in paragraph at lines 413--414
 []\OT1/cmr/m/n/12 https://github.com/JaeDukSeo/reinforcement-learning-an-introd
 uction/tree/master/chapter01 
  []
 
-[17] [18
+[19] [20
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 400.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 400.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 420.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 420.
  (document.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 400.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 400.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 420.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 420.
 Package rerunfilecheck Info: File `document.out' has not changed.
 (rerunfilecheck)             Checksum: 8456DE549B2D38704DCB7E1B2BCAC5D9;952.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 400.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 420.
  ) 
 Here is how much of TeX's memory you used:
- 7807 strings out of 493308
- 109502 string characters out of 3138768
- 222305 words of memory out of 3000000
- 11139 multiletter control sequences out of 15000+200000
+ 7810 strings out of 493308
+ 109530 string characters out of 3138768
+ 222380 words of memory out of 3000000
+ 11140 multiletter control sequences out of 15000+200000
  11349 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,8n,41p,687b,2014s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 28i,8n,41p,701b,2014s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Program 
 Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/Mi
@@ -786,9 +788,9 @@ iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiK
 TeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.9/
 fonts/type1/public/txfonts/t1xbtt.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/txfonts/t1xtt.pfb>
-Output written on document.pdf (22 pages, 353335 bytes).
+Output written on document.pdf (24 pages, 356264 bytes).
 PDF statistics:
- 390 PDF objects out of 1000 (max. 8388607)
- 148 named destinations out of 1000 (max. 500000)
+ 398 PDF objects out of 1000 (max. 8388607)
+ 150 named destinations out of 1000 (max. 500000)
  149 words of extra memory for PDF output out of 10000 (max. 10000000)
 
