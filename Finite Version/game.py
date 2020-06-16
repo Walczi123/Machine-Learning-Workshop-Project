@@ -1,5 +1,6 @@
 from player import Player, Bot
 from state import State
+import argparse
 
 # main class of tictactoe game
 class Game:
@@ -71,18 +72,41 @@ class Game:
 
 
 if __name__ == "__main__":
-    # create bots
-    b1 = Bot(1)
-    b2 = Bot(2)
-    game = Game(b1, b2, need_for_win=3, boardSize = 1)
-    game.debug = False
-    # traninng
-    better_bot = game.train()
-    # select the better one
-    if better_bot == 1 : 
-        game.player2 = Player()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-i", "--iterations", default="100000", help="Iterations for training")
+    ap.add_argument("-t", "--train", default="y", help="Choose whether to train or only play")
+    ap.add_argument("-s", "--start", default="2", help="Choose whether you want to play first or second (only when not training)")
+    ap.add_argument("-b", "--boardsize", default="3", help="Size of the side of the finite board")
+    ap.add_argument("-n", "--need", default="3", help="Number of symbols in a row to win")
+    args = vars(ap.parse_args())
+    iter = int(args["iterations"])
+    bSize = int(args["boardsize"])
+    need = int(args["need"])
+
+    if args["train"] == "y":
+        # create bots
+        b1 = Bot(1)
+        b2 = Bot(2)
+        game = Game(b1, b2, need_for_win=need, boardSize = bSize)
+        game.debug = False
+        # training
+        better_bot = game.train(iterations=iter)
+        # select the better one
+        if better_bot == 1 : 
+            game.player2 = Player()
+        else:
+            game.player1 = Player()
+        game.debug = True
+        # play with our bot
+        game.play() 
     else:
-        game.player1 = Player()
-    game.debug = True
-    # play with our bot
-    game.play()        
+        if int(args["start"]) == 1:
+            player = Player()
+            b2 = Bot(2)
+            game = Game(player, b2, need_for_win=need, boardSize=bSize)
+        else:
+            b1 = Bot(1)
+            player = Player()
+            game = Game(b1, player, need_for_win=need, boardSize=bSize)
+        game.debug = True
+        game.play()        

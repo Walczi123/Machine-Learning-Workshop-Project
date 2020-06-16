@@ -51,12 +51,18 @@ class State:
         minwidth=min(list,key=lambda x:x[0])[0]
         maxheight=max(list,key=lambda x:x[1])[1]
         minheight=min(list,key=lambda x:x[1])[1]    
-        print("",end="   ")
+        print(" ",end="   ")
         for y in range(minwidth,maxwidth+1):
-            print(y,end="   ")
+            if y < 0:
+                print(y,end="  ")
+            else:
+                print(" " + str(y),end="  ")
         for y in range(maxheight,minheight-1,-1):
             print("\n")
-            print(y,end="   ")
+            if y >= 0:
+                print(" " + str(y), end="   ")
+            else:
+                print(y,end="   ")
             for x in range(minwidth,maxwidth+1):
                 cell=findCell(list,x,y)
                 if(cell):

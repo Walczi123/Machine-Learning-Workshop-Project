@@ -15,6 +15,9 @@ class State:
         if findCell(self.data,move[0],move[1]):
             print("This cell is already occupied! Try again")
             return False
+        if abs(move[0]) > math.ceil(self.boardSize/2) - 1 or abs(move[1]) > math.ceil(self.boardSize/2) - 1:
+            print("This cell is outside of bounds! Try again")
+            return False
         self.data.append(move)
         return True
     
@@ -37,7 +40,7 @@ class State:
                 self.end=True
                 self.winner=2
                 return self.end
-        if len(self.data) == (2*self.boardSize + 1) * (2*self.boardSize + 1):
+        if len(self.data) == self.boardSize * self.boardSize:
                 self.end=True
                 self.winner=0
                 return self.end
@@ -57,12 +60,18 @@ class State:
         minwidth=min(list,key=lambda x:x[0])[0]
         maxheight=max(list,key=lambda x:x[1])[1]
         minheight=min(list,key=lambda x:x[1])[1]    
-        print("",end="   ")
+        print(" ",end="   ")
         for y in range(minwidth,maxwidth+1):
-            print(y,end="   ")
+            if y < 0:
+                print(y,end="  ")
+            else:
+                print(" " + str(y),end="  ")
         for y in range(maxheight,minheight-1,-1):
             print("\n")
-            print(y,end="   ")
+            if y >= 0:
+                print(" " + str(y), end="   ")
+            else:
+                print(y,end="   ")
             for x in range(minwidth,maxwidth+1):
                 cell=findCell(list,x,y)
                 if(cell):
