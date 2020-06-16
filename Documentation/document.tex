@@ -308,7 +308,7 @@ As it was mentioned at the beginning, the number of possible games on the 3x3 bo
 \includegraphics{./Images/3x3moves.jpg}
 	\centering
 	\caption{Combinations of moves for a 3x3 board\protect\footnotemark}
-	\label{fig:Capture1}
+	\label{fig:Capture3}
 \end{figure}
 \footnotetext{Source of the image: \url{http://www.se16.info/hgb/tictactoe.htm}}
 
@@ -323,34 +323,44 @@ This statement is based on results of two bots playing against each other and fa
 Parameters and results for the tests:
 
 \begin{description}
-	\item iterations = 10 000 000
-	\item boardSize = 
-	\item need for win = 
-	\item limiter = 
-	\item stepSize = 
-	\item exploreRate = 
-	\item Player1 wins = 
-	\item Player2 wins = 
+	\item 5x5
+	\item iterations = 300 000
+	\item boardSize = 5
+	\item need for win = 4
+	\item limiter = 2
+	\item stepSize = 0,1
+	\item exploreRate = 0,3
+	\item Player1 wins = 56\%
+	\item Player2 wins = 44\%
+	\newline
+	\item 3x3
+	\item iterations = 500 000
+	\item boardSize = 3
+	\item need for win = 3
+	\item limiter = 1
+	\item stepSize = 0,1
+	\item exploreRate = 0,3
+	\item Player1 wins = 60\%
+	\item Player2 wins = 40\%
 \end{description}
 
-Obtained results were satisfying and as expected. Both bots (trained for Player1 and Player2) were losing to a human player but their actions were not completely random. At the end of the training the number of games which were won by the bot with first move was approximately 2/3 of all played games. On the other hand after only a few thousands it was slightly more than 1/2. It shows that the algorithm works for the finite board, because the starting player have an advantage and, without any mistakes, should always win or at least have a draw. With more iterations we can expect to achieve better results, but the improvement will be slower than at the beginning.
+Obtained results were satisfying and as expected. Both bots (trained for Player1 and Player2) were losing to a human player but their actions were not completely random. At the end of the training on a 3x3 board the number of games which were won by the bot with first move was approximately 2/3 of all played games. On the other hand after only a few thousands it was slightly more than 1/2. It shows that the algorithm works for the finite board, because the starting player has an advantage and, without any mistakes, should always win or at least have a draw. With more iterations we can expect to achieve better results, but the improvement will be slower than at the beginning.
 
  	\section{Infinite board}
 
 Parameters and results for the tests:
 
 \begin{description}
-	\item iterations = 10 000 000
-	\item boardSize = 
-	\item need for win = 
-	\item limiter = 
-	\item stepSize = 
-	\item exploreRate = 
-	\item Player1 wins = 
-	\item Player2 wins = 
+	\item iterations = 100 000
+	\item need for win = 5
+	\item limiter = 5
+	\item stepSize = 0,1
+	\item exploreRate = 0,3
+	\item Player1 wins = 57\%
+	\item Player2 wins = 43\%
 \end{description}
 
-For this version results were not satisfying. Bots were losing to a human player and their moves didn't make too much sense. Clearly expanding the approach from the finite version only by increasing the area for possible moves was not enough. Still, the starting bot (Player1) was better than the second one.
+This version is somewhat sluggish to train, thus we only ran 100 000 iterations. The results were not entirely satisfying. Bots were losing to a human player and their moves didn't make too much sense. The bot placed 2 symbols close to eachother without following through on them. Clearly expanding the approach from the finite version only by increasing the area for possible moves was not enough. Still, the starting bot (Player1) was better than the second one.
 
  	\section{Infinite board (smarter moves)}
 
@@ -358,16 +368,15 @@ Parameters and results for the tests:
 
 \begin{description}
 	\item iterations = 10 000 000
-	\item boardSize = 
-	\item need for win = 
-	\item limiter = 
-	\item stepSize = 
-	\item exploreRate = 
-	\item Player1 wins = 
-	\item Player2 wins = 
+	\item need for win = 3
+	\item limiter = 2
+	\item stepSize = 0,1
+	\item exploreRate = 0,3
+	\item Player1 wins = 63\%
+	\item Player2 wins = 37\%
 \end{description}
 
-After changes which limit the actions to the "center" of the game, results are much better. They are able to choose next moves more wisely than before. It is also easier for them to deal with the infinite possibilities of moves.
+After changes which limit the actions to the "center" of the game, results are much better. They are able to choose next moves more wisely than before. It is also easier for them to deal with the infinite possibilities of moves. With further training the first bot would continue expanding the gap in skill between the bots.
 
  	\section{Summary}
 
@@ -375,15 +384,26 @@ Our implementation of reinforcement learning to build a bot for the Tic-Tac-Toe 
 
 On the other hand playing with a human is not recommended at this moment, because bots still need more training and tests. Unfortunately, we are not able to perform such computations. To deal with this problem we could try to find more powerful computer or try to optimalise the bot further. 
 
-Creating a bot which will be able to make decisions on the infinite board requires a lot of training iterations. Learning to play on a finite board is much faster. From possible changes, we could add choosing the best move randomly if there is more than one with the same maximum value.
+Creating a bot which will be able to make decisions on the infinite board requires a lot of training iterations. Learning to play on a finite board is much faster. From possible changes, we could add choosing the best move randomly if there is more than one with the same maximum value or making the bot look through not the entire states library.
 
 	\chapter{Instruction}
 
-There are three versions of the program, each in their respective order. Player makes move by giving two integers, respectively x and y position.
+There are three versions of the program, each in their respective folder. The Player makes a move by inputting two integers, x and y, which corresponds to the x,y position in the board.
 
 To start the training run the $game.py$ python script, at the end the results will be shown and the game will start with the better bot.
 
-To play without the training run $only\_play.py$ python script. Important note: To do so, policy from the previous training is needed. Otherwise the bot will not know how to play at all. Player can be changed manually in the code of this script.
+The file $game.py$ can be run with different options to have a desired result. The options are available after running $game.py --help$ and work as follows:
+\begin{itemize}
+	\item -i/--iterations - choose the number of iterations for the training process
+	\item -t/--train - choose whether you want to train the bots (default, "y" for yes) or just play against a bot ("n" for no)
+	\item -s/--start - choose whether you want to go first ("1") or second ("2") (this option only makes sense when not training, after training the better bot is chosen to play against, which usually means the first bot) 
+	\item -b/--boardSize - choose the (odd) length of the side of the finite board (not implemented in the infinite case)
+	\item -n/--need - the number of symbols in a row necessary to win
+\end{itemize}
+
+By default, the game is run as: $game.py$ -i 100000 -t  y -s 2 -b 3 -n 3
+
+Important note: to play without training, policy from the previous training is needed. Otherwise the bot will not know how to play at all.
 
 	\chapter{Bibliography}
 

@@ -10,7 +10,7 @@
 \contentsline {section}{\numberline {3.1}Predictions}{11}{section.3.1}
 \contentsline {section}{\numberline {3.2}Finite board}{12}{section.3.2}
 \contentsline {section}{\numberline {3.3}Infinite board}{13}{section.3.3}
-\contentsline {section}{\numberline {3.4}Infinite board (smarter moves)}{13}{section.3.4}
+\contentsline {section}{\numberline {3.4}Infinite board (smarter moves)}{14}{section.3.4}
 \contentsline {section}{\numberline {3.5}Summary}{14}{section.3.5}
-\contentsline {chapter}{\numberline {4}Instruction}{15}{chapter.4}
-\contentsline {chapter}{\numberline {5}Bibliography}{17}{chapter.5}
+\contentsline {chapter}{\numberline {4}Instruction}{17}{chapter.4}
+\contentsline {chapter}{\numberline {5}Bibliography}{19}{chapter.5}
