@@ -88,22 +88,22 @@
 		\label{fig:Capture1}
 	\end{figure}
 	\footnotetext{Source of the image: \url{https://en.wikipedia.org/wiki/Tic-tac-toe}}
-	And as it turns out, there are 255 168 possible games. So this means that, with the help of the reinforcement learning, a bot may train to mastery. 
+	And as it turns out, there are 255 168 possible games. So this means that, with the help of the reinforcement learning, a bot may be trained to mastery. 
 	\newpage
 	\section{Our implementation}
-	Our team decided to create a bot which would play this game but in an expanded version of it. The principal changes concern, inter alia:\\
+	Our team decided to create a bot which would play an expanded version of the game. The principal changes concern, inter alia:\\
 	\begin{itemize}
 		\item \textbf{The size of the grid could be infinite}\\
-		The number of squares is not boundless, of course. Due to the CPU, as well as the storage limitations, the infinity has to be simulated. We came up with two solutions. The first one is pretty straightforward, but a little preachy. The idea is to set the size in advance. The second one, in turn, assumes an increase in the size whenever the players get close to the edge.
+		The number of squares is not boundless, of course. Due to the CPU, as well as the storage limitations, the infinity has to be simulated. We came up with three solutions. The first one is pretty straightforward, but a little preachy. The idea is to set the size in advance. The second one, in turn, assumes an increase in the size whenever the players get close to the edge. The third one assumes that a player should not make a move which is too far from the symbols already placed on the board, as it would do very little to interfere with the other player's gameplan.
 		\item \textbf{Condition of winning}\\
 		The length of the sequence of X's or O's needed to win may have any value. Naturally, it has to satisfy the following condition:
 		\begin{center}
 			$0 < length < edgelength$
 		\end{center}
-		There is still the matter of the draw. In case of the constant size gird, the tie occurs, whenever there is no way for any player to win.
+		There is still the matter of the draw. In case of the constant size gird, the tie occurs whenever there is no way for any player to win.
 	\end{itemize}
 	\section{Machine Learning backgroud}
-To deal with the problem we are using reinforcement learning, which trains algorithm by a system of reward and punishment. In this way we can put one bot against the other and let them play, so they will find the best solutions to the game by themselves without any supervision. 
+To deal with the problem we are using reinforcement learning, which trains algorithm by a system of reward and punishment. In this way we can match one bot against the other and let them play so that they will find the best solutions to the game by themselves without any supervision. 
 \\Basic reinforcement learning can be modeled as a Markov decision process:
 	\begin{itemize}
 		\item set of states $S$ (state space)
@@ -121,7 +121,7 @@ To deal with the problem we are using reinforcement learning, which trains algor
 \end{figure}
 \footnotetext{Source of the image: \url{https://www.kdnuggets.com/images/reinforcement-learning-fig1-700.jpg}}
 
-A reward is a scalar feedback signal, which indicates how well agent is doing at the given step $R_{t}$. Reinforcement is based on the reward hypothesis, which tells that goals can be described by the maximisation of expected cumulative reward, so the agent's job is to maximise cumulative reward. To do so, in our implementation, it selects actions, which gives the greatest reward (have the greatest value) immediately. 
+A reward is a scalar feedback signal, which indicates how well the agent is doing at the given step $R_{t}$. Reinforcement is based on the reward hypothesis, which tells that goals can be described by the maximisation of expected cumulative reward, so the agent's job is to maximise cumulative reward. To do so, in our implementation, it selects actions which give the greatest reward (have the greatest value) immediately. 
 
 Observation is the information about environment received by the agent. The history is the sequence of observations, actions and rewards up to time $t$.
 
@@ -129,7 +129,7 @@ Observation is the information about environment received by the agent. The hist
 	H_{t} = A_{1}, O_{1}, R_{1}, ...,  A_{t}, O_{t}, R_{t}
 \end{equation}
 
-State is the information used to determine the next action. Our environment (game board) is fully observable, so the state of environment is the same as the state of the agent and observation of the agent. State can be described as a function of history.
+State is the information used to determine the next action. Our environment (game board) is fully observable, so the state of the environment is the same as the state of the agent and observation of the agent. State can be described as a function of history.
 
 \begin{equation}
 	S_{t} = f(H_{t})
@@ -141,10 +141,10 @@ A state $S_{t}$ is Markov state if and only if
 	P[S_{t+1} | S_{t}] = P[S_{t+1} | S_{1}, ..., S_{t}]
 \end{equation}
 
-Then if the current state is known, the history is not needed. State $S_{t}$ is enough to decide on the next action.
-Additionaly, our environment is fully observable. It means that the agent state is equal to the environment state, the agent has all information about environment.
+Then, if the current state is known, the history is not needed. State $S_{t}$ is enough to decide on the next action.
+Additionaly, as stated earlier, our environment is fully observable, which means that the agent state is equal to the environment state; the agent has all information about environment.
 
-Reinforcement learning agent contains two components: policy and value function. The policy describes how the agent behaves, it is a map from state to action. Value function tells how good is each state or action. 
+Reinforcement learning agent contains two components: policy and value function. The policy describes how the agent behaves, it is a map from state to action. Value function tells how good each state or action is. 
 
 In our implementation the policy is a dictionary containing every state encountered during learning with some value. Value function decides which move is the best by analysing these values for the next actions, but only one ahead. Our agent is using a deterministic policy, the action is chosen by finding the greatest value for the next state. There is only a slight probability for doing a random action, thanks to this the algorithm can learn and explore new paths.
 
@@ -182,7 +182,7 @@ def train(iterations):
 		return player2
 \end{python}
 
-Limiter in the bot instance limits the range of the optional moves on the board. ExploreRate is a probability of a random action, stepSize controlls increasement of the value for the given state during reward feeding. 
+Limiter in the bot instance limits the range of the optional moves on the board. ExploreRate is a probability of a random action, stepSize controls the increment of value for the given state during reward feeding. 
 
 In this function, the set of actions is constructed for a given state. AI decides which move to make by considering every possibility in it's current bounds. The move is analyzed by checking how the state would look like after the action. If such situation on the board has not occured before (it is not in the estimations), the new state is given the value (1 for win, 0 for lose and 0.5 otherwise), hashed and added to the estimations dictionary.
 
@@ -240,7 +240,7 @@ def feedReward(reward):
 
 There are two policies, optimal policy 1 is for the starting bot and optimal policy 2 is for the bot which has second move. Each training session starts with loading the last optimal policy as estimations and ends with saving them. 
 
-The file contains hashed states, which allows for a quick comparison as keys, and their appropriate values in a dictionary. In this way we do not have to store and compare the whole state, calculating hash is enough to preserve the uniqueness of the state. Only the set of moves is being hashed, the order is not important. Stored data should be reduced to the necessary minimum because the number of possible states grow very quickly (for the infinite board there is an infinite number of states).
+The file contains hashed states, which allows for a quick comparison as keys, and their appropriate values in a dictionary. In this way we do not have to store and compare the whole state, calculating hash is enough to preserve the uniqueness of the state. Only the set of moves is being hashed, the order is not important. Stored data should be reduced to the necessary minimum because the number of possible states grows very quickly (for the infinite board there is an infinite number of states).
 
 \begin{figure}[!h]
 \includegraphics{./Images/hashing.jpg}
@@ -266,9 +266,9 @@ def move(state):
 
 	\section{Infinite board (smarter moves)}
 
-On the infinite board there are infinite possibilities for the next move. To help a little bit our agent in playing and learning process, we are limiting the set of possible actions by eliminating ones which are pointless from the logical point of view. 
+On the infinite board there are infinite possibilities for the next move. To help our agent in playing and in the learning process, we are limiting the set of possible actions by eliminating ones which are pointless from the logical point of view. 
 
-To be exact, the set of possible moves consists of possitions which are in the neighborhood (described by $limiter$ value here) of already taken positions. In that way we will not have situations where the bot randomly decides to make a move on some position far away from the center of the action, which is ineffective and illogical. 
+To be exact, the set of possible moves consists of positions which are in the neighborhood (described by $limiter$ value here) of already taken positions. In that way we will not have situations where the bot randomly decides to make a move on some position far away from the center of the action, which is ineffective and illogical. 
 
 Additionaly, if the bot is starting the game, the first move will be at a random position in the middle of the board (3x3 square).
 
@@ -302,7 +302,7 @@ def move(state):
 
 	\section{Predictions}
 
-As it was mentioned at the beginning, the number of possible games on the 3x3 board is 255 168. When the size increases, the number of possible games skyrockets to the unimaginably large number. It is not that hard for the algorithm to find all the possible states of the game for the fairly small boards, but every small change to the board size generates a lot of new possibilities. The minimal number for moves to win, if the winning condition is 3 in a row, is 5 and maximum is the number of positions on the board. For each number of moves we have to consider every possible state of the game. For the infinite board this number goes to infinity.
+As it was mentioned at the beginning, the number of possible games on the 3x3 board is 255 168. When the size increases, the number of possible games skyrockets to an unimaginably large number. It is not that hard for the algorithm to find all the possible states of the game for the fairly small boards, but every small change to the board size generates a lot of new possibilities. The minimal number for moves to win, if the winning condition is 3 in a row, is 5 and maximum is the number of positions on the board. For each number of moves we have to consider every possible state of the game. For the infinite board this number goes to infinity.
 
 \begin{figure}[!h]
 \includegraphics{./Images/3x3moves.jpg}
@@ -312,9 +312,9 @@ As it was mentioned at the beginning, the number of possible games on the 3x3 bo
 \end{figure}
 \footnotetext{Source of the image: \url{http://www.se16.info/hgb/tictactoe.htm}}
 
-Theoretically our bot should be able to achive skill level which will be enough to play on a par with a human. Unfortunately, as we expected, to do so, even on a finite board, the agent should go through more iterations than we were capable of running. Policy file quickly grows to the huge size and we do not have enough computational power to train it well enough.
+Theoretically our bot should be able to achive skill level which will be enough to play on a par with a human. Unfortunately, as we expected, to do so, even on a finite board, the agent should go through more iterations than we were capable of running. Policy file quickly grows to a huge size and we do not have enough computational power to train it well enough.
 
-While it is not capable of playing with a human, results of our training show that the algorithm is working correctly and we can assume that after enough iterations it should play as expected. 
+While it is not capable of decisively winning against a human, results of our training show that the algorithm is working correctly and we can assume that after enough iterations it should play as expected. 
 
 This statement is based on results of two bots playing against each other and fact that the player who starts has better chances of winning in Tic-Tac-Toe, because the second one has to react to his moves. If the first one does not make any mistake in the worst scenario, on the finite board, the result of the game will be a draw. For the infinite board there are no draws, so the starting player should always win.
 
@@ -371,7 +371,7 @@ After changes which limit the actions to the "center" of the game, results are m
 
  	\section{Summary}
 
-Our implementation of reinforcement learinng to build a bot for the Tic-Tac-Toe game works quite well when it comes to play with the other bot and meets our expectations. When playing together, the first bot is winning significantly more often. 
+Our implementation of reinforcement learning to build a bot for the Tic-Tac-Toe game works quite well when it comes to playing with the other bot and meets our expectations. When playing together, the first bot is winning significantly more often. 
 
 On the other hand playing with a human is not recommended at this moment, because bots still need more training and tests. Unfortunately, we are not able to perform such computations. To deal with this problem we could try to find more powerful computer or try to optimalise the bot further. 
 
